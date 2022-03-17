@@ -13,9 +13,13 @@ const StationSchema = new mongoose.Schema({
     longitude:{
         type: Number,
         required:[true, 'Enter longitude']
+    },
+    status:{
+        type:String,
+        required:[true, '']
     }
 
 }, { timestamps: true })
 
 
-module.exports.Stations = mongoose.model("Project", StationSchema);
+module.exports.Stations = mongoose.model("Stations", StationSchema);

@@ -19,7 +19,7 @@ module.exports.createStation = (req, res) => {
 
 module.exports.getStation = (req, res) => {
     Stations.find({})
-        .then(res => res.json(res))
+        .then(station => res.json(station))
         .catch(err => res.json(err))
 }
 

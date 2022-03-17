@@ -1,29 +1,39 @@
 import React from 'react'
 import { GoogleMap, Marker, withScriptjs, withGoogleMap } from "react-google-maps"
 import mark1 from '../img/mark1.png'
-const Map = (props) => {
-    const chargingStation = [
-        {
-            title:'1',
-            lat: -0.195801,
-            lng: -78.497409 
-        },
-        {
-            title:'Station 2',
-            lat: -0.1866689131407795,
-            lng: -78.48223568626726 
-        },
-    ]
+import available from '../img/available.png'
+const Map = ({isMarkerShown, chargingStation}) => {
+    console.log(chargingStation)
+    
     return (
+
         <>
             <GoogleMap
                 defaultZoom={14}
                 defaultCenter={{ lat: -0.18428460234541166, lng: -78.4846462360105 }}
             >
                 {
-                    props.isMarkerShown && 
-                    chargingStation.map((station,idx) =>    
-                        <Marker icon={mark1} key={idx} position={{ lat: station.lat, lng: station.lng }} title={station.title}/>)
+                    isMarkerShown && 
+                    chargingStation?.map((station,idx) =>    
+                        
+                            {
+                            if(station.status === 'available'){
+                                return (<Marker 
+                                    icon={available} 
+                                    key={idx} 
+                                    position={{ lat: station.latitude, lng: station.longitude }} 
+                                    title={station.title}
+                                />)
+                            }
+                            else {
+                                return (<Marker 
+                                    icon={mark1} 
+                                    key={idx} 
+                                    position={{ lat: station.latitude, lng: station.longitude }} 
+                                    title={station.title}
+                                />) 
+                            }
+                })
                 
                 }
             </GoogleMap>
