@@ -10,8 +10,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
-require('./server/routes/workshop.routes')(app);
-require('./server/routes/stations.routes')(app);
+require('./server/routes/workshop.routes')(app); //talleres
+require('./server/routes/stations.routes')(app);    // estaciones
 
 app.listen(port,() => {
     console.log('Listening on port '+ port)

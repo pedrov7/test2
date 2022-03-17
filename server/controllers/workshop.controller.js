@@ -1,11 +1,14 @@
 const {Workshop} = require('../models/workshop.model');
 
 module.exports.createWorkshop = (req,res) =>{
-    const {name,address} = req.body;
+    const {name,address,phone,latitude,longitude} = req.body;
 
     Workshop.create({
         name,
-        address
+        address,
+        phone,
+        latitude,
+        longitude
     })
     .then(res => res.json(res))
     .catch(err=>{

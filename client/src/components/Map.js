@@ -4,7 +4,7 @@ import mark1 from '../img/mark1.png'
 const Map = (props) => {
     const chargingStation = [
         {
-            title:'Station 1',
+            title:'1',
             lat: -0.195801,
             lng: -78.497409 
         },
