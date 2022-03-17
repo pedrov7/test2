@@ -2,9 +2,9 @@ import React from 'react'
 import { GoogleMap, Marker, withScriptjs, withGoogleMap } from "react-google-maps"
 import mark1 from '../img/mark1.png'
 import available from '../img/available.png'
+
 const Map = ({isMarkerShown, chargingStation}) => {
-    console.log(chargingStation)
-    
+    // console.log(chargingStation)
     return (
 
         <>
