@@ -40,7 +40,7 @@ export const Stationediter = () => {
 
         <div className='row'>
 
-            <Link className='btn btn-info' to={'/'}> Retornar</Link>
+            <Link className='btn btn-info mt-4' to={'/'}> Retornar</Link>
 
             {stations.map((item, index) =>
                 
