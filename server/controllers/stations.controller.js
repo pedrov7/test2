@@ -25,7 +25,7 @@ module.exports.getStation = (req, res) => {
 }
 
 module.exports.updateStatus = (io) => (req, res) => {
-    Stations.updateOne({ _id: req.params.id }, { status: req.params.status })
+    Stations.updateOne({ _id: req.params.id },{status: req.params.status })
         .then(updateStation => {
             res.json(updateStation)
             io.emit('updateStatus', 'se actualizo el estado')
