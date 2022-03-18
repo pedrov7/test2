@@ -1,7 +1,7 @@
 const { Stations } = require('../models/stations.model');
 
 module.exports.createStation = (req, res) => {
-    const {title, latitude, longitude,status } = req.body;
+    const { title, latitude, longitude, status } = req.body;
 
     Stations.create({
         title,
@@ -9,7 +9,6 @@ module.exports.createStation = (req, res) => {
         longitude,
         status
     })
-        // .save()
         .then(res => {
             res.json({ msg: "success!", title })
         })
@@ -18,7 +17,6 @@ module.exports.createStation = (req, res) => {
 
 
 module.exports.getStation = (req, res) => {
-
     Stations.find({})
         .then(station => {
             res.json(station)
@@ -26,17 +24,20 @@ module.exports.getStation = (req, res) => {
         .catch(err => res.json(err))
 }
 
-// module.exports.updateStatus = (req,res) => {
-//     Stations.updateOne({_id: req.params.id}, {status: req.params.status})
-//         .then(updateEquipo => res.json(updateEquipo))
-//         .catch(err => res.json(err))
-// }
+module.exports.updateStatus = (io) => (req, res) => {
+    Stations.updateOne({ _id: req.params.id }, { status: req.params.status })
+        .then(updateStation => {
+            res.json(updateStation)
+            io.emit('updateStatus', 'se actualizo el estado')
+        })
+        .catch(err => res.json(err))
+}
 
-module.exports.updateStation = (req,res) => {
+module.exports.updateStation = (req, res) => {
 
-    Stations.findOneAndUpdate({_id:req.params.id},req.body,{new:true})
-    .then(updateProduct => res.json(updateProduct))
-    .catch(err => res.json(err))
+    Stations.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+        .then(updateProduct => res.json(updateProduct))
+        .catch(err => res.json(err))
 }
 
 
