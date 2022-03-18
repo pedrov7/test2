@@ -20,10 +20,7 @@ export const Stationediter = () => {
     const handleOnClick = (id,status) => {
         if(status === 'available'){ 
             setStatus('busy')                                  
-            return axios.put(`http://localhost:8000/api/station/status/${id}/busy`)
-                
-                
-                
+            return axios.put(`http://localhost:8000/api/station/status/${id}/busy`)                
 
             // return console.log("busy")       
         }
@@ -42,7 +39,7 @@ export const Stationediter = () => {
 
             <Link className='btn btn-info mt-4' to={'/'}> Retornar</Link>
 
-            {stations.map((item, index) =>
+            {stations.length >0 && stations.map((item, index) =>
                 
                     <div key={index} onClick={() => {handleOnClick(item._id,item.status)}} className="btn card text-center my-3 p-0 mx-3" data-bs-toggle="tooltip" data-bs-placement="bottom" title={item.status} style={{ width: '18rem' }}>
                         <div className="card text-center" style={{ minHeight: '15rem ' }}>
