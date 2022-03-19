@@ -1,36 +1,18 @@
 import React, { useState } from 'react'
-import firebaseApp from '../credentials'
-import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signInWithRedirect,
-    GoogleAuthProvider
-} from 'firebase/auth'
-import { getFirestore, doc, setDoc } from 'firebase/firestore'
-
-
-const auth = getAuth(firebaseApp)
-const firestore = getFirestore(firebaseApp)
-
-const googleProvider = new GoogleAuthProvider();
+import { useNavigate } from 'react-router-dom';
+import useAuth from '../context/UseAuth'
 
 export const Login = () => {
+    const navigate = useNavigate();
+    const {login, loginWithGoogle} = useAuth();
     const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
     const [role, setRole] = useState(true)
     const [isRegistre, setIsRegistre] = useState(false)
-    async function handlerOnSumbmit(e) {
+    
+    function handlerOnSumbmit(e) {
         e.preventDefault();
-        if (isRegistre) {
-            const userCreate = await createUserWithEmailAndPassword(auth, user, password).then()
-            const docuRef = doc(firestore, `/Usuarios/${userCreate.user.uid}`)
-            role ? setDoc(docuRef, { user: user, role:'client'}) : setDoc(docuRef, { user: user, role:'provider'}) 
-        } else {
-            const userSignIn = await signInWithEmailAndPassword(auth, user, password).then()
-            console.log(userSignIn)
-        }
-
+        login(isRegistre,user, password, role)
     }
     return (
         <>
@@ -53,7 +35,7 @@ export const Login = () => {
             </form>
 
             <button onClick={() => setIsRegistre(!isRegistre)} className="btn btn-primary">{isRegistre ? 'Ya tienes una cuenta?, Inicia ' : 'No tienes cuenta?, Registrate'}</button>
-            <button onClick={() => { signInWithRedirect(auth, googleProvider) }} type="button" className="btn btn-primary">Google</button>
+            <button onClick={loginWithGoogle} type="button" className="btn btn-primary">Google</button>
         </>
 
     )

@@ -5,29 +5,40 @@ import { Link } from 'react-router-dom'
 export const Stationediter = () => {
 
     const [stations, setStations] = useState([]);
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState([]);
 
 
     useEffect(() => {
+       
         axios.get('http://localhost:8000/api/stations')
             .then(res => {
                 setStations(res.data)
+                if(setStatus){
+                    // setStatus([])
+
+                }
             })
     },[status])
 
-    // console.log(stations);
 
-    const handleOnClick = (id,status) => {
-        if(status === 'available'){ 
-            setStatus('busy')                                  
-            return axios.put(`http://localhost:8000/api/station/status/${id}/busy`)                
 
-            // return console.log("busy")       
+    const handleOnClick = (id,statusStation) => {
+        if(statusStation === 'available'){ 
+            // setStatus('busy')                                  
+             axios.put(`http://localhost:8000/api/station/status/${id}/busy`)  
+             .then(res => {
+                 setStatus([...status,res])
+             })              
+
+                
         }
-        else if(status  === 'busy'){
-            setStatus('available')
-            return axios.put(`http://localhost:8000/api/station/status/${id}/available`)
-            // return console.log("available")  
+        else if(statusStation  === 'busy'){
+            // setStatus('available')
+             axios.put(`http://localhost:8000/api/station/status/${id}/available`)
+             .then(res => {
+                setStatus([...status,res])
+            })       
+            
         }
         
 

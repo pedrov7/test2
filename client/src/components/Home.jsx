@@ -1,16 +1,13 @@
 import React from 'react'
-
-import firebaseApp from '../credentials'
-import { getAuth, signOut } from 'firebase/auth'
 import { Link } from 'react-router-dom'
-
-const auth = getAuth(firebaseApp)
+import useAuth from '../context/UseAuth'
 
 export const Home = () => {
+  const { logout } = useAuth();
   return (
     <div>
       <h4>Sesion iniciada</h4>
-      <button onClick={() => signOut(auth)} className='btn btn-info'>Cerrar sesion</button>
+      <button onClick={logout} className='btn btn-info'>Cerrar sesión</button>
       <Link className='btn btn-warning ms-2' to={'/stationedit'}>Editar Estaciones</Link>
     </div>
   )
