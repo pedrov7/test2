@@ -9,8 +9,9 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: ["http://34.125.43.210","http://localhost:3000","http://34.125.43.210:3000", "http://127.0.0.1", "http://127.0.0.1:3000"],
     allowedHeaders: ["my-custom-header"],
+    methods:["GET","POST"],
     credentials: true
   }
 });
@@ -23,6 +24,7 @@ app.use(express.urlencoded({ extended: true }))
 
 require('./server/routes/workshop.routes')(app, io); //talleres
 require('./server/routes/stations.routes')(app, io);    // estaciones
+
 
 server.listen(port, () => {
   console.log('Listening on port ' + port)
